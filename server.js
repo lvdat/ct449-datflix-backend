@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import logger from 'morgan'
-// import routes from './routes.js'
+import routes from './routes.js'
 import mongoose from 'mongoose'
 
 const app = express()
@@ -27,14 +27,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
         process.exit()
     })
 
-app.use('/', (req, res) => {
-    res.send({
-        message: "Hello World"
-    })
-    }
-)
-
-// app.use('/api/v1/', routes)
+app.use('/api/v1/', routes)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`)
