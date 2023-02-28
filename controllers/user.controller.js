@@ -19,7 +19,7 @@ export async function login (req, res) {
         message: 'Không tim thấy tài khoản!'
         })
     }
-    if (!user.password || user.password !== md5(md5(password))) {
+    if (!user.password || user.password !== md5(password)) {
         return res.status(401).send({
         message: 'Sai mật khẩu!'
         })
