@@ -27,8 +27,9 @@ export async function login (req, res) {
     const token = jwt.sign({ id: user._id }, secret, { expiresIn: '1d' })
     return res.status(200).json({
         message: 'Đăng nhập thành công',
-        name: user.name,
+        username,
         x_access_token: token,
+        avatar: user.avatar,
     })
 }
 
@@ -60,6 +61,43 @@ export async function register (req, res) {
         return res.status(400).send({
             message: 'Có lỗi trong quá trình tạo tài khoản',
             error: error.message
+        })
+    }
+}
+
+export async function getUserCurrent (req, res) {
+    const uid = req.uid
+    try {
+        const user = await User.findById(uid).select('-password -__v').exec()
+        if (!user) {
+            return res.status(404).send({
+                message: 'Không tim thấy tài khoản!'
+            })
+        }
+        return res.status(200).send(user)
+    } catch (err) {
+        return res.status(500).send({
+            message: 'Có lỗi trong quá trình lấy thông tin tài khoản',
+            error: err.message
+        })
+    }
+}
+
+export async function getUserById (req, res) {
+    if(req.params.id === '' || req.params.id === null) return res.status(400).send({ message: 'Vui lòng nhập id' })
+    const uid = req.params.id
+    try {
+        const user = await User.findById(uid).select('-password -__v -email').exec()
+        if (!user) {
+            return res.status(404).send({
+                message: 'Không tim thấy tài khoản!'
+            })
+        }
+        return res.status(200).send(user)
+    } catch (err) {
+        return res.status(500).send({
+            message: 'Có lỗi trong quá trình lấy thông tin tài khoản',
+            error: err.message
         })
     }
 }
