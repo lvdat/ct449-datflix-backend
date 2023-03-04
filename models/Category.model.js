@@ -7,4 +7,4 @@ const categorySchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('User', categorySchema)
+export default mongoose.model('Category', categorySchema)
