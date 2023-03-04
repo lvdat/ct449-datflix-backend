@@ -9,4 +9,5 @@ router.post('/auth/register', register)
 router.get('/user/:id', getUserById)
 router.get('/user', getUserCurrentMiddleware, getUserCurrent)
 
+
 export default router
