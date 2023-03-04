@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 
 const filmSchema = new mongoose.Schema({
     // some idea from TMDB
-    bugget: String,
+    bugget: Number,
     homepage: String,
     imdb_id: String,
     overview: String,
